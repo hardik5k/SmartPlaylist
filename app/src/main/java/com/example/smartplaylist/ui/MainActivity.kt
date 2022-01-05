@@ -1,11 +1,17 @@
-package com.example.smartplaylist
+package com.example.smartplaylist.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
+import com.example.smartplaylist.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
     }
+
+
 }

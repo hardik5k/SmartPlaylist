@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "150663164495",
+    "project_id": "smartplaylist-f0fa4",
+    "storage_bucket": "smartplaylist-f0fa4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150663164495:android:ed549a362bb18e57a7f03a",
+        "android_client_info": {
+          "package_name": "com.example.smartplaylist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150663164495-k5ni5u45qm51o74n0ednjue6nr0qcc9o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtJqD05wcAsRN_k67pXYvG9X5vq9Cqt24"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150663164495-k5ni5u45qm51o74n0ednjue6nr0qcc9o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
