@@ -1,6 +1,7 @@
 package com.example.smartplaylist.ui
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -14,9 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smartplaylist.databinding.FragmentSongsBinding
 
 class SongsFragment : Fragment() {
-
-    private val sp = activity?.getSharedPreferences("swipedsongs", Context.MODE_PRIVATE)
-    var editor = sp?.edit()
 
     private var _binding: FragmentSongsBinding? = null
     private val binding get() = _binding!!
@@ -33,6 +31,7 @@ class SongsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentSongsBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(PlaylistViewModel::class.java)
         return binding.root
@@ -64,15 +63,16 @@ class SongsFragment : Fragment() {
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             var position = viewHolder.adapterPosition
             var currentSong = adapter.playlist[position]
-            currentSong.numberOfVotes = ((currentSong.numberOfVotes!!.toInt()) + 1).toString()
 
 
             when(direction){
                 ItemTouchHelper.RIGHT -> {
-                    viewModel.voteSong(currentSong)
-                    editor?.putString(currentSong.id!!, "1")
-                    editor?.commit()
-                    Log.d("hello", "message is fuck off")
+                    if (adapter.checkSongSwiped(currentSong.id!!) == 0){
+                        currentSong.numberOfVotes = ((currentSong.numberOfVotes!!.toInt()) + 1).toString()
+                        viewModel.voteSong(currentSong)
+                        adapter.addSongSwiped(currentSong.id!!)
+                    }
+
                 }
             }
             binding.recyclerViewSongs.adapter?.notifyDataSetChanged()
