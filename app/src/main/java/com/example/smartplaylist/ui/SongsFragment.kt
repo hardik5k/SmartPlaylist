@@ -74,6 +74,13 @@ class SongsFragment : Fragment() {
                     }
 
                 }
+                ItemTouchHelper.LEFT ->{
+                    if (adapter.checkSongSwiped(currentSong.id!!) == 1){
+                        currentSong.numberOfVotes = ((currentSong.numberOfVotes!!.toInt()) - 1).toString()
+                        viewModel.voteSong(currentSong)
+                        adapter.removeSongSwiped(currentSong.id!!)
+                    }
+                }
             }
             binding.recyclerViewSongs.adapter?.notifyDataSetChanged()
         }

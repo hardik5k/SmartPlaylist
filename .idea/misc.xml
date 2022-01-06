@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/cmana/Desktop/Programming/Hackathon/SmartPlaylist/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/cmana/Desktop/Programming/Hackathon/SmartPlaylist/app/src/main/res/layout/fragment_songs.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/cmana/Desktop/Programming/Hackathon/SmartPlaylist/app/src/main/res/layout/recycler_view_song.xml" value="0.25416666666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_songs.xml" value="0.18614130434782608" />
         <entry key="app/src/main/res/layout/recycler_view_song.xml" value="0.25" />

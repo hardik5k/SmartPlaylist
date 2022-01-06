@@ -3,6 +3,7 @@ package com.example.smartplaylist.ui
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -30,6 +31,12 @@ class SongAdapter: RecyclerView.Adapter<SongAdapter.ViewHolder>()  {
         holder.binding.textViewRank.text = (position + 1).toString()
         holder.binding.textViewArtist.text = playlist[position].artistName
         holder.binding.textViewVotes.text = playlist[position].numberOfVotes
+        if(checkSongSwiped(playlist[position].id!!) == 1){
+            holder.binding.cardViewVotes.setCardBackgroundColor(Color.parseColor("#B0DCFF"));
+        }
+        if(checkSongSwiped(playlist[position].id!!) == 0){
+            holder.binding.cardViewVotes.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
+        }
     }
 
     override fun getItemCount(): Int {
@@ -60,6 +67,10 @@ class SongAdapter: RecyclerView.Adapter<SongAdapter.ViewHolder>()  {
     fun checkSongSwiped(id :String): Int {
         return sharedPreferences.getInt(id, 0)
     }
-
+    fun removeSongSwiped(id :String) {
+        var editor = sharedPreferences.edit()
+        editor.putInt(id, 0)
+        editor.commit()
+    }
 
 }
