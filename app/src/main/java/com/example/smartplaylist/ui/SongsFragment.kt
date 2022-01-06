@@ -1,11 +1,13 @@
 package com.example.smartplaylist.ui
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +15,8 @@ import com.example.smartplaylist.databinding.FragmentSongsBinding
 
 class SongsFragment : Fragment() {
 
+    private val sp = activity?.getSharedPreferences("swipedsongs", Context.MODE_PRIVATE)
+    var editor = sp?.edit()
 
     private var _binding: FragmentSongsBinding? = null
     private val binding get() = _binding!!
@@ -62,9 +66,13 @@ class SongsFragment : Fragment() {
             var currentSong = adapter.playlist[position]
             currentSong.numberOfVotes = ((currentSong.numberOfVotes!!.toInt()) + 1).toString()
 
+
             when(direction){
                 ItemTouchHelper.RIGHT -> {
                     viewModel.voteSong(currentSong)
+                    editor?.putString(currentSong.id!!, "1")
+                    editor?.commit()
+                    Log.d("hello", "message is fuck off")
                 }
             }
             binding.recyclerViewSongs.adapter?.notifyDataSetChanged()
