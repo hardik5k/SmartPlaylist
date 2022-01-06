@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">SmartPlaylist</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="song_name">SONG NAME</string>
     <string name="song_rank">1</string>
     <string name="song_artist">Artist</string>
     <string name="votes">17</string>
+    <string name="link">PASTE YOUR LINK HERE</string>
 </resources>
