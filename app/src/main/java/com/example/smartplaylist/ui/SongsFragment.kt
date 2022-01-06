@@ -44,10 +44,13 @@ class SongsFragment : Fragment() {
             AddSongFragment().show(childFragmentManager, "")
         }
 
+        viewModel.getRealTimeUpdate()
+
         viewModel.song.observe(viewLifecycleOwner, {
             adapter.addSong(it)
         })
-        viewModel.getRealTimeUpdate()
+
+
         val itemTouchHelper = ItemTouchHelper(simpleCallback)
         itemTouchHelper.attachToRecyclerView(binding.recyclerViewSongs)
     }
@@ -62,8 +65,8 @@ class SongsFragment : Fragment() {
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            var position = viewHolder.adapterPosition
-            var currentSong = adapter.playlist[position]
+            val position = viewHolder.adapterPosition
+            val currentSong = adapter.playlist[position]
 
 
             when(direction){

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -44,17 +43,17 @@ class SongAdapter: RecyclerView.Adapter<SongAdapter.ViewHolder>()  {
     }
 
     fun addSong(song: Song){
-        if (!playlist.contains((song))){
+        val index = playlist.indexOfFirst { it.id == song.id}
+        if (index == -1){
             playlist.add(song)
         }
         else{
-            val index = playlist.indexOf(song)
             playlist[index] = song
         }
 
         //sort the playlist according to number of votes
         playlist.sortByDescending{
-            it.numberOfVotes
+            it.numberOfVotes?.toInt()
         }
 
         notifyDataSetChanged()
