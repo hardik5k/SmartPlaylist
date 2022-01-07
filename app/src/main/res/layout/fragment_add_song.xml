@@ -30,4 +30,6 @@
         android:layout_gravity="center_horizontal"
         android:backgroundTint="#FFC107"
         android:text="ADD TO PLAYLIST" />
+
+
 </LinearLayout>
