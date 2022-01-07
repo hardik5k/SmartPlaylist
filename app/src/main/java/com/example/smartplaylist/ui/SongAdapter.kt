@@ -26,7 +26,7 @@ class SongAdapter: RecyclerView.Adapter<SongAdapter.ViewHolder>()  {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.textViewSongname.text = playlist[position].songName
-        //holder.binding.textViewSongname.isSelected = true
+        holder.binding.textViewSongname.isSelected = true
         holder.binding.textViewRank.text = (position + 1).toString()
         holder.binding.textViewArtist.text = playlist[position].artistName
         holder.binding.textViewVotes.text = playlist[position].numberOfVotes
