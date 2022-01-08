@@ -8,4 +8,5 @@
     <string name="link">PASTE YOUR LINK HERE</string>
     <string name="songadded">Song added to playlist</string>
     <string name="error">%1$s</string>
+    <string name="Display">ArtistName</string>
 </resources>

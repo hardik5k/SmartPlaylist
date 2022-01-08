@@ -12,3 +12,32 @@ data class Snippet(
     val thumbnails: Thumbnails,
     val title: String
 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

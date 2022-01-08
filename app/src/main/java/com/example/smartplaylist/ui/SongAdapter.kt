@@ -1,14 +1,15 @@
 package com.example.smartplaylist.ui
 
-import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.smartplaylist.databinding.RecyclerViewSongBinding
 import com.example.smartplaylist.data.Song
+import com.example.smartplaylist.databinding.RecyclerViewSongBinding
 
 
 class SongAdapter: RecyclerView.Adapter<SongAdapter.ViewHolder>()  {
@@ -16,7 +17,22 @@ class SongAdapter: RecyclerView.Adapter<SongAdapter.ViewHolder>()  {
     var playlist = mutableListOf<Song>()
     private lateinit var sharedPreferences: SharedPreferences
 
-    inner class ViewHolder(val binding: RecyclerViewSongBinding): RecyclerView.ViewHolder(binding.root){}
+    //androidx.fragment.app.FragmentActivity @NonNull
+    //public FragmentManager getSupportFragmentManager()
+
+    inner class ViewHolder(val binding: RecyclerViewSongBinding): RecyclerView.ViewHolder(binding.root){
+        init {
+            val popupsheet=PopupSheet()
+            itemView.setOnClickListener {
+                    v: View ->
+                val position: Int = adapterPosition
+                var context = itemView.context
+                val manager = (context as AppCompatActivity).supportFragmentManager
+                popupsheet.ArtistName = playlist[position].artistName!!
+               popupsheet.show(context.supportFragmentManager, "hello")
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var context = parent.context
