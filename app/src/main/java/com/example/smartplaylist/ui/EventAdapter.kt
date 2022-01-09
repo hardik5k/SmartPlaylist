@@ -1,5 +1,6 @@
 package com.example.smartplaylist.ui
 
+import android.app.Activity
 import com.example.smartplaylist.data.Event
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,13 +8,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartplaylist.R
+//import android.R
+
+import android.widget.FrameLayout
+import androidx.fragment.app.FragmentActivity
 
 
 class EventAdapter() : RecyclerView.Adapter<EventAdapter.EventViewHolder>()  {
 
     var eventList = mutableListOf<Event>()
+
+    private var listener: (() -> Unit)? = null
+    fun setListener(listener: (() -> Unit)?) {
+        this.listener = listener
+    }
 
     constructor(sampleList: MutableList<Event>) : this() {
 
@@ -46,8 +57,8 @@ class EventAdapter() : RecyclerView.Adapter<EventAdapter.EventViewHolder>()  {
         holder.button.setOnClickListener {
 
             // change fragment
-            
 
+            listener?.invoke()
         }
     }
 
