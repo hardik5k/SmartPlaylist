@@ -80,6 +80,8 @@ class HomeCalendar : Fragment() {
         binding.button.setOnClickListener {
 
             // host event func
+
+            AddEventFragment().show(childFragmentManager, "")
         }
 
         binding.recyclerView.adapter = adapter
