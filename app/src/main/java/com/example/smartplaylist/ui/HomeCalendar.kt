@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.smartplaylist.R
 import com.example.smartplaylist.databinding.FragmentHomeCalendarBinding
+import com.example.smartplaylist.data.Event
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,7 +58,12 @@ class HomeCalendar : Fragment() {
             val toast = Toast.makeText(this.context, "hey $dayOfMonth/$month/$year !!", Toast.LENGTH_SHORT).show()
         }
 
-        binding.recyclerView.adapter = EventAdapter()
+        binding.recyclerView.adapter = EventAdapter(mutableListOf(
+            Event("1", "Event 1", "Desc 1"),
+            Event("2", "Event 2", "Desc 2"),
+            Event("3", "Event 3", "Desc 3"),
+            Event("4", "Event 4", "Desc 4"),
+            Event("5", "Event 5", "Desc 5")))
     }
 
     companion object {
