@@ -14,12 +14,15 @@ import com.example.smartplaylist.R
 //import android.R
 
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 
 
 class EventAdapter() : RecyclerView.Adapter<EventAdapter.EventViewHolder>()  {
 
     var eventList = mutableListOf<Event>()
+
+    var eventID: String? = null
 
     private var listener: (() -> Unit)? = null
     fun setListener(listener: (() -> Unit)?) {
@@ -58,6 +61,7 @@ class EventAdapter() : RecyclerView.Adapter<EventAdapter.EventViewHolder>()  {
 
             // change fragment
 
+            eventID = holder.id
             listener?.invoke()
         }
     }
@@ -67,6 +71,7 @@ class EventAdapter() : RecyclerView.Adapter<EventAdapter.EventViewHolder>()  {
 
     fun addEvent(event: Event) {
 
+        println("spidermannn")
         eventList.add(event)
     }
 }
