@@ -9,9 +9,5 @@
     <string name="songadded">Song added to playlist</string>
     <string name="error">%1$s</string>
     <string name="Display">ArtistName</string>
-    <string name="Display2">SongName</string>
-    <string name="DisplaySname">Song Name</string>
-    <string name="DisplayAname">Artist Name</string>
-    <string name="DisplayVCount">View Count : 1,326,480,124</string>
-    <string name="DisplayLCount">Likes Count : 93,25,876</string>
+    <string name="eventcreated">Event created successfully</string>
 </resources>

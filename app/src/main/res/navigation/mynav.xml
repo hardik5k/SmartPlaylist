@@ -3,11 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mynav"
-    app:startDestination="@id/songsFragment">
+    app:startDestination="@id/homeCalendar">
 
     <fragment
         android:id="@+id/songsFragment"
         android:name="com.example.smartplaylist.ui.SongsFragment"
         android:label="fragment_songs"
         tools:layout="@layout/fragment_songs" />
+    <fragment
+        android:id="@+id/homeCalendar"
+        android:name="com.example.smartplaylist.ui.HomeCalendar"
+        android:label="fragment_home_calendar"
+        tools:layout="@layout/fragment_home_calendar">
+        <action
+            android:id="@+id/action_homeCalendar_to_songsFragment"
+            app:destination="@id/songsFragment" />
+    </fragment>
 </navigation>

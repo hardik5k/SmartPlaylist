@@ -17,8 +17,6 @@ class SongAdapter: RecyclerView.Adapter<SongAdapter.ViewHolder>()  {
     var playlist = mutableListOf<Song>()
     private lateinit var sharedPreferences: SharedPreferences
 
-    //androidx.fragment.app.FragmentActivity @NonNull
-    //public FragmentManager getSupportFragmentManager()
 
     inner class ViewHolder(val binding: RecyclerViewSongBinding): RecyclerView.ViewHolder(binding.root){
         init {
