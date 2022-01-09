@@ -27,6 +27,11 @@ The app has a simple, yet an interactive and modern interface. A few android con
 
 Besides, we used Adaptors, Fragments, ContraintLayout, CardViews, Navigation and other core Android functionalities.
 
+## Instructions of Use
+* As the app opens, the calendar can be used to scroll to an appropriate day and add events.
+* Inside each event, the '+' button is used to add songs using their YouTube URL.
+* Each card of the event list can be right/left swiped to up/down vote a song, and tapping on the card provides useful song information.
+
 ## Application Link & Future Scope
 
 APP REPO LINK : https://github.com/hardik5k/SmartPlaylist
