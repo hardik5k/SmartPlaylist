@@ -1,6 +1,7 @@
 package com.example.smartplaylist.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,47 +13,26 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.smartplaylist.R
 import com.example.smartplaylist.databinding.FragmentHomeCalendarBinding
 import com.example.smartplaylist.data.Event
+import java.text.SimpleDateFormat
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeCalendar.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeCalendar : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
 
     lateinit var binding: FragmentHomeCalendarBinding
 
-    val adapter =  EventAdapter(mutableListOf(
-        Event("1", "Event 1", "Desc 1"),
-        Event("2", "Event 2", "Desc 2"),
-        Event("3", "Event 3", "Desc 3"),
-        Event("4", "Event 4", "Desc 4"),
-        Event("5", "Event 5", "Desc 5")))
+    val adapter =  EventAdapter()
 
     lateinit var viewModel: EventlistViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_home_calendar, container, false)
 
         binding = FragmentHomeCalendarBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this).get(EventlistViewModel::class.java)
@@ -63,37 +43,30 @@ class HomeCalendar : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter.setListener {
-
-            // SongsFragment( event id? )
-
-//            activity?.supportFragmentManager?.beginTransaction()?.replace(this.id, SongsFragment(3))?.commit()
-
             activity?.supportFragmentManager?.commit {
-                replace(this@HomeCalendar.id, SongsFragment(69), "")
+                replace(this@HomeCalendar.id, SongsFragment(adapter.eventID!!), "")
                 addToBackStack(null)
             }
         }
 
         binding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
 
-            // date change event
-
-            // binding.recyclerView.adapter = EventAdapter(..)
-
-            val toast = Toast.makeText(this.context, "hey $dayOfMonth/$month/$year !!", Toast.LENGTH_SHORT).show()
+            var dateID = "$dayOfMonth-$month-$year"
+            adapter.clearEvents()
+            viewModel.getRealTimeUpdate(dateID)
         }
 
 
         binding.button.setOnClickListener {
 
-            // host event func
-
             AddEventFragment().show(childFragmentManager, "")
         }
 
         binding.recyclerView.adapter = adapter
-
-        viewModel.getRealTimeUpdate()
+        val sdf = SimpleDateFormat("d-M-yyyy")
+        val currentDate = sdf.format(Date())
+        Log.d("date", currentDate)
+        viewModel.getRealTimeUpdate(currentDate)
 
         viewModel.event.observe(viewLifecycleOwner, {
 
@@ -101,23 +74,4 @@ class HomeCalendar : Fragment() {
         })
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeCalendar.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeCalendar().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

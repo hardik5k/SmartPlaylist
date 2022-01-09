@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartplaylist.databinding.FragmentSongsBinding
 
-class SongsFragment(private var eventID: Int) : Fragment() {
+class SongsFragment(private var eventID: String) : Fragment() {
 
     private var _binding: FragmentSongsBinding? = null
     private val binding get() = _binding!!
@@ -30,7 +30,6 @@ class SongsFragment(private var eventID: Int) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val toast = Toast.makeText(this.context, "hey $eventID works!!", Toast.LENGTH_SHORT).show()
 
         _binding = FragmentSongsBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(PlaylistViewModel::class.java)
@@ -47,7 +46,7 @@ class SongsFragment(private var eventID: Int) : Fragment() {
             AddSongFragment().show(childFragmentManager, "")
         }
 
-        viewModel.getRealTimeUpdate()
+        viewModel.getRealTimeUpdate(eventID)
 
         viewModel.song.observe(viewLifecycleOwner, {
             adapter.addSong(it)

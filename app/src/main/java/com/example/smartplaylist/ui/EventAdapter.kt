@@ -20,16 +20,13 @@ import androidx.fragment.app.FragmentActivity
 class EventAdapter() : RecyclerView.Adapter<EventAdapter.EventViewHolder>()  {
 
     var eventList = mutableListOf<Event>()
+    var eventID : String? = null
 
     private var listener: (() -> Unit)? = null
     fun setListener(listener: (() -> Unit)?) {
         this.listener = listener
     }
 
-    constructor(sampleList: MutableList<Event>) : this() {
-
-        eventList = sampleList
-    }
 
     class EventViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
@@ -57,7 +54,7 @@ class EventAdapter() : RecyclerView.Adapter<EventAdapter.EventViewHolder>()  {
         holder.button.setOnClickListener {
 
             // change fragment
-
+            eventID = holder.id
             listener?.invoke()
         }
     }
@@ -66,7 +63,16 @@ class EventAdapter() : RecyclerView.Adapter<EventAdapter.EventViewHolder>()  {
 
 
     fun addEvent(event: Event) {
+        val index = eventList.indexOfFirst { it.eventID == event.eventID}
+        if (index == -1){
+            eventList.add(event)
+            notifyDataSetChanged()
+        }
 
-        eventList.add(event)
+
+    }
+    fun clearEvents(){
+        eventList.clear()
+        notifyDataSetChanged()
     }
 }

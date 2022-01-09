@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.smartplaylist.R
+import com.example.smartplaylist.data.Event
 import com.example.smartplaylist.databinding.FragmentAddEventBinding
 import com.example.smartplaylist.databinding.FragmentHomeCalendarBinding
 
@@ -34,14 +35,32 @@ class AddEventFragment : DialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        viewModel.result.observe(viewLifecycleOwner, {
+            val message = if (it == null){
+                getString(R.string.eventcreated)
+            }else{
+                getString(R.string.error, it.message)
+            }
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            dismiss()
+        })
+
         binding.buttonAddEvent.setOnClickListener{
-            val link = binding.textViewLink.text.toString().trim()
-            if (link.isEmpty()){
-                binding.textViewLink.error = "This field is required"
+            val name = binding.textViewName.text.toString().trim()
+            val desc = binding.textViewDesc.text.toString().trim()
+            if (name.isEmpty()){
+                binding.textViewName.error = "This field is required"
+                return@setOnClickListener
+            }
+            if (desc.isEmpty()){
+                binding.textViewDesc.error = "This field is required"
                 return@setOnClickListener
             }
 
-            // add to db and return
+            val event = Event()
+            event.eventName  = name
+            event.eventDescription = desc
+            viewModel.addEvent(event)
         }
     }
 }

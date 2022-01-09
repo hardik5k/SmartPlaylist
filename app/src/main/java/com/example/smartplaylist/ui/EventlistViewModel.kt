@@ -6,13 +6,14 @@ import androidx.lifecycle.ViewModel
 import com.example.smartplaylist.data.NODE_EVENTS
 import com.example.smartplaylist.data.Event
 import com.google.firebase.FirebaseApp
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class EventlistViewModel: ViewModel() {
-    private val db = FirebaseDatabase.getInstance("https://smartplaylist-f0fa4-default-rtdb.firebaseio.com/").getReference(NODE_EVENTS)
+    private val db = FirebaseDatabase.getInstance("https://smartplaylist-f0fa4-default-rtdb.firebaseio.com/").getReference()
+    private val db1 = FirebaseDatabase.getInstance("https://smartplaylist-f0fa4-default-rtdb.firebaseio.com/").getReference("events")
+    private var ref: DatabaseReference = db.child("9-0-2022")
 
     private val _result = MutableLiveData<Exception?>()
     val result: LiveData<Exception?> get() = _result
@@ -21,14 +22,21 @@ class EventlistViewModel: ViewModel() {
     val event: LiveData<Event> get() = _event
 
     fun addEvent(event: Event){
-        event.eventID = db.push().key
-        db.child(event.eventID!!).setValue(event).addOnCompleteListener {
+        event.eventID = ref.push().key
+        ref.child(event.eventID!!).setValue(event).addOnCompleteListener {
             if (it.isSuccessful) {
                 _result.value = null
             } else {
                 _result.value = it.exception
             }
         }
+//        db1.child(event.eventID!!).setValue(event).addOnCompleteListener {
+//            if (it.isSuccessful) {
+//                _result.value = null
+//            } else {
+//                _result.value = it.exception
+//            }
+//        }
     }
 
     private val childEventListener = object : ChildEventListener{
@@ -53,8 +61,9 @@ class EventlistViewModel: ViewModel() {
 
     }
 
-    fun getRealTimeUpdate() {
-        db.addChildEventListener(childEventListener)
+    fun getRealTimeUpdate(dateID: String) {
+        ref = db.child(dateID)
+        ref.addChildEventListener(childEventListener)
     }
 
     override fun onCleared() {

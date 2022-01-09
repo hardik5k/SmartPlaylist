@@ -3,6 +3,7 @@ package com.example.smartplaylist.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.smartplaylist.data.NODE_DATES
 import com.example.smartplaylist.data.NODE_SONGS
 import com.example.smartplaylist.data.Song
 import com.google.firebase.FirebaseApp
@@ -12,7 +13,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 
 class PlaylistViewModel: ViewModel() {
-     private val db = FirebaseDatabase.getInstance("https://smartplaylist-f0fa4-default-rtdb.firebaseio.com/").getReference(NODE_SONGS)
+    private var db = FirebaseDatabase.getInstance("https://smartplaylist-f0fa4-default-rtdb.firebaseio.com/").getReference("events")
 
     private val _result = MutableLiveData<Exception?>()
     val result: LiveData<Exception?> get() = _result
@@ -53,7 +54,8 @@ class PlaylistViewModel: ViewModel() {
 
     }
 
-    fun getRealTimeUpdate() {
+    fun getRealTimeUpdate(eventID: String) {
+        db = db.child(eventID)
         db.addChildEventListener(childEventListener)
     }
 
