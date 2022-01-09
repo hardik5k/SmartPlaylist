@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import com.example.smartplaylist.R
 import com.example.smartplaylist.databinding.FragmentHomeCalendarBinding
@@ -64,7 +65,13 @@ class HomeCalendar : Fragment() {
         adapter.setListener {
 
             // SongsFragment( event id? )
-            activity?.supportFragmentManager?.beginTransaction()?.replace(this.id, SongsFragment())?.commit()
+
+//            activity?.supportFragmentManager?.beginTransaction()?.replace(this.id, SongsFragment(3))?.commit()
+
+            activity?.supportFragmentManager?.commit {
+                replace(this@HomeCalendar.id, SongsFragment(69), "")
+                addToBackStack(null)
+            }
         }
 
         binding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
