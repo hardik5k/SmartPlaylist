@@ -37,7 +37,7 @@
 
             android:layout_marginTop="20dp"
             android:text="Title"
-
+            android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toRightOf="@id/imageView"
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Description"
-
+            android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/imageView"
 
