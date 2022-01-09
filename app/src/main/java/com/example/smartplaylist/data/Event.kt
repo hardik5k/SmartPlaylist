@@ -4,7 +4,7 @@ import com.google.firebase.database.Exclude
 
 data class Event(
     @get:Exclude
-    var eventID: String,
-    var eventName: String,
+    var eventID: String? = null,
+    var eventName: String? = null,
     var eventDescription: String? = null,
 )

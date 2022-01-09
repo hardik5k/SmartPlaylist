@@ -11,13 +11,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smartplaylist.R
 
 
-class EventAdapter : RecyclerView.Adapter<EventAdapter.EventViewHolder>()  {
+class EventAdapter() : RecyclerView.Adapter<EventAdapter.EventViewHolder>()  {
 
     var eventList = mutableListOf<Event>()
 
+    constructor(sampleList: MutableList<Event>) : this() {
+
+        eventList = sampleList
+    }
+
     class EventViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
-        lateinit var id: String
+        var id: String? = null
         val title: TextView = view.findViewById(R.id.title)
         val desc: TextView = view.findViewById(R.id.desc)
         val button: Button = view.findViewById(R.id.button2)
@@ -47,4 +52,10 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.EventViewHolder>()  {
     }
 
     override fun getItemCount() = eventList.size
+
+
+    fun addEvent(event: Event) {
+
+        eventList.add(event)
+    }
 }
