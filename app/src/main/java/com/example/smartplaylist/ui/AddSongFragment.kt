@@ -18,6 +18,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.NumberFormat
+import java.util.*
 
 class AddSongFragment : DialogFragment() {
 
@@ -26,13 +28,11 @@ class AddSongFragment : DialogFragment() {
 
     private var channelName: String = ""
     private var titleName: String = ""
+    private var likesCount: String = ""
+    private var viewsCount: String = ""
+    private var link: String = ""
 
     private lateinit var viewModel: PlaylistViewModel
-
-    private val api_key = "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"
-    private val str = "nfs8NYg7yQM"
-    private val  part = "snippet,statistics"
-    private val fields = "items(id,snippet,statistics)"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,39 +63,65 @@ class AddSongFragment : DialogFragment() {
         })
 
         binding.buttonAddSong.setOnClickListener{
-            val link = binding.textViewLink.text.toString().trim()
+            link = binding.textViewLink.text.toString().trim()
             if (link.isEmpty()){
                 binding.textViewLink.error = "This field is required"
                 return@setOnClickListener
             }
             val linkLength = link.length
+            if(link.length < 11){
+                binding.textViewLink.error = "Invalid Link"
+                return@setOnClickListener
+            }
             val videoid = link.slice(linkLength - 11..linkLength - 1)
-            getMyData(videoid)
-
+            val flag = getMyData(videoid)
+            if(flag == 0){
+                binding.textViewLink.error = "Invalid Link"
+                return@setOnClickListener
+            }
 
         }
     }
 
-    fun getMyData(videoid: String){
+    fun getMyData(videoid: String) : Int{
         var url = "https://www.googleapis.com/youtube/v3/videos?id=" + videoid + "&key=AIzaSyClQRybPNCwvDhk2RjT5Q7zVizvlWaSRZk&part=snippet,statistics&fields=items(id,snippet,statistics)"
-        Log.d("url:", url)
         val retrofitBuilder = Retrofit.Builder()
             .baseUrl("https://www.googleapis.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiInterface::class.java)
+        var flag = 1
         val retrofitData = retrofitBuilder.getData(url)
         retrofitData.enqueue(object : Callback<YTData?> {
-            override fun onResponse(call: Call<YTData?>, response: Response<YTData?>) {
+            override fun onResponse(call: Call<YTData?>, response: Response<YTData?>)  {
                 val resbody = response?.body()
                 val build = StringBuilder()
-                if (resbody != null) {
+                if(resbody?.items?.size == 0){
+                    binding.textViewLink.error = "Invalid Link"
+                    flag = 0
+                }
+                else if(resbody!=null){
+
+                    val myFormat: NumberFormat = NumberFormat.getInstance()
+                    myFormat.isGroupingUsed = true
+
                     channelName = resbody.items[0].snippet.channelTitle
                     titleName = resbody.items[0].snippet.title
+                    likesCount = resbody.items[0].statistics.likeCount
+                    likesCount = NumberFormat.getNumberInstance(Locale.US)
+                        .format(likesCount.toInt())
+                    viewsCount = resbody.items[0].statistics.viewCount
+                    viewsCount = NumberFormat.getNumberInstance(Locale.US)
+                        .format(viewsCount.toInt())
+
+
                     var song = Song()
                     song.songName = titleName
                     song.artistName = channelName
                     song.numberOfVotes = "1"
+                    song.likesCount = likesCount
+                    song.viewCount = viewsCount
+                    song.URL = link
                     viewModel.addSong(song)
 
                 }
@@ -104,6 +130,7 @@ class AddSongFragment : DialogFragment() {
                 Log.d("AddSongFragment", "onFailure: "+ t.message)
             }
         })
+        return flag
     }
 
 }

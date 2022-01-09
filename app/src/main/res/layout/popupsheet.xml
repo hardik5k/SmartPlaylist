@@ -1,19 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#4A4A4A"
+    android:backgroundTint="#595656"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:paddingBottom="20dp">
+    android:padding
 
     <TextView
-        android:layout_height="wrap_content"
+        android:id="@+id/text_view_popSongName"
         android:layout_width="match_parent"
-        android:layout_margin="20dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:gravity="center"
-        android:id = "@+id/text_view_popArtistName"
-        android:text="@string/Display"
-        android:textColor="@android:color/black"
-        android:textSize="30dp"
-        />
+        android:text="@string/DisplaySname"
+        android:textColor="@android:color/white"
+        android:textSize="37dp" />
+
+    <TextView
+        android:id="@+id/text_view_popArtistName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:gravity="center"
+        android:text="@string/DisplayAname"
+        android:textColor="@android:color/white"
+        android:textSize="27dp" />
+
+    <TextView
+        android:id="@+id/text_view_popViewCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/DisplayVCount"
+        android:textColor="@android:color/white"
+        android:textSize="17dp" />
+
+    <TextView
+        android:id="@+id/text_view_popLikesCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="@string/DisplayLCount"
+        android:textColor="@android:color/white"
+        android:textSize="17dp" />
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="#FF0000"
+        android:text="Watch on YouTube"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:cornerRadius="5dp"
+        app:iconTint="@android:color/holo_red_light"
+        app:strokeColor="#323232"
+        app:strokeWidth="0dp" />
+
+    />
 
 </LinearLayout>

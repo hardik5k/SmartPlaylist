@@ -28,8 +28,12 @@ class SongAdapter: RecyclerView.Adapter<SongAdapter.ViewHolder>()  {
                 val position: Int = adapterPosition
                 var context = itemView.context
                 val manager = (context as AppCompatActivity).supportFragmentManager
+                popupsheet.SongName = playlist[position].songName!!
                 popupsheet.ArtistName = playlist[position].artistName!!
-               popupsheet.show(context.supportFragmentManager, "hello")
+                popupsheet.viewCount = playlist[position].viewCount!!
+                popupsheet.likesCount = playlist[position].likesCount!!
+                popupsheet.URL = playlist[position].URL!!
+               popupsheet.show(context.supportFragmentManager, "")
             }
         }
     }
@@ -37,6 +41,7 @@ class SongAdapter: RecyclerView.Adapter<SongAdapter.ViewHolder>()  {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var context = parent.context
         sharedPreferences = context.getSharedPreferences("swipedsongs", MODE_PRIVATE)
+        sharedPreferences = context.getSharedPreferences("addedsongs", MODE_PRIVATE)
         return ViewHolder(RecyclerViewSongBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
@@ -62,6 +67,7 @@ class SongAdapter: RecyclerView.Adapter<SongAdapter.ViewHolder>()  {
         val index = playlist.indexOfFirst { it.id == song.id}
         if (index == -1){
             playlist.add(song)
+            addSongAdded(song.songName!!)
         }
         else{
             playlist[index] = song
@@ -79,12 +85,25 @@ class SongAdapter: RecyclerView.Adapter<SongAdapter.ViewHolder>()  {
         editor.putInt(id, 1)
         editor.commit()
     }
+    fun addSongAdded(id : String){
+        var editor = sharedPreferences.edit()
+        editor.putInt(id, 1)
+        editor.commit()
+    }
     fun checkSongSwiped(id :String): Int {
+        return sharedPreferences.getInt(id, 0)
+    }
+    fun checkSongAdded(id: String): Int{
         return sharedPreferences.getInt(id, 0)
     }
     fun removeSongSwiped(id :String) {
         var editor = sharedPreferences.edit()
         editor.putInt(id, 0)
+        editor.commit()
+    }
+    fun removeSongAdded(id: String){
+        var editor = sharedPreferences.edit()
+        editor.remove(id)
         editor.commit()
     }
 
