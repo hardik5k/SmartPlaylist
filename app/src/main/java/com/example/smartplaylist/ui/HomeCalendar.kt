@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.smartplaylist.R
 import com.example.smartplaylist.databinding.FragmentHomeCalendarBinding
 
@@ -46,6 +47,15 @@ class HomeCalendar : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
+
+            // date change event
+
+            // binding.recyclerView.adapter = EventAdapter(..)
+
+            val toast = Toast.makeText(this.context, "hey $dayOfMonth/$month/$year !!", Toast.LENGTH_SHORT).show()
+        }
 
         binding.recyclerView.adapter = EventAdapter()
     }
