@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartplaylist.databinding.FragmentSongsBinding
 
-class SongsFragment(private var eventID: Int) : Fragment() {
+class SongsFragment(private var eventID: String?) : Fragment() {
 
     private var _binding: FragmentSongsBinding? = null
     private val binding get() = _binding!!

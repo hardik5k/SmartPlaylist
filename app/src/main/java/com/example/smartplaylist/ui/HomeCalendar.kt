@@ -69,7 +69,8 @@ class HomeCalendar : Fragment() {
 //            activity?.supportFragmentManager?.beginTransaction()?.replace(this.id, SongsFragment(3))?.commit()
 
             activity?.supportFragmentManager?.commit {
-                replace(this@HomeCalendar.id, SongsFragment(69), "")
+
+                replace(this@HomeCalendar.id, SongsFragment(adapter.eventID), "")
                 addToBackStack(null)
             }
         }

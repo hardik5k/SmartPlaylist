@@ -21,6 +21,9 @@ class EventlistViewModel: ViewModel() {
     val event: LiveData<Event> get() = _event
 
     fun addEvent(event: Event){
+
+        println("view model")
+
         event.eventID = db.push().key
         db.child(event.eventID!!).setValue(event).addOnCompleteListener {
             if (it.isSuccessful) {
