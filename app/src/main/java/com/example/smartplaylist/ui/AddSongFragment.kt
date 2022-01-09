@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.text.NumberFormat
 import java.util.*
 
-class AddSongFragment : DialogFragment() {
+class AddSongFragment constructor(private var eid: String) : DialogFragment() {
 
     private var _binding1: FragmentAddSongBinding? = null
     private val binding get() = _binding1!!
@@ -109,10 +109,10 @@ class AddSongFragment : DialogFragment() {
                     titleName = resbody.items[0].snippet.title
                     likesCount = resbody.items[0].statistics.likeCount
                     likesCount = NumberFormat.getNumberInstance(Locale.US)
-                        .format(likesCount.toInt())
+                        .format(likesCount.toLong())
                     viewsCount = resbody.items[0].statistics.viewCount
                     viewsCount = NumberFormat.getNumberInstance(Locale.US)
-                        .format(viewsCount.toInt())
+                        .format(viewsCount.toLong())
 
 
                     var song = Song()
@@ -122,7 +122,7 @@ class AddSongFragment : DialogFragment() {
                     song.likesCount = likesCount
                     song.viewCount = viewsCount
                     song.URL = link
-                    viewModel.addSong(song)
+                    viewModel.addSong(song, eid)
 
                 }
             }

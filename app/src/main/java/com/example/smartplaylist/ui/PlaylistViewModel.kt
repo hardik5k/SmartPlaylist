@@ -3,10 +3,7 @@ package com.example.smartplaylist.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.smartplaylist.data.NODE_DATES
-import com.example.smartplaylist.data.NODE_SONGS
 import com.example.smartplaylist.data.Song
-import com.google.firebase.FirebaseApp
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -21,9 +18,10 @@ class PlaylistViewModel: ViewModel() {
     private val _song = MutableLiveData<Song>()
     val song: LiveData<Song> get() = _song
 
-    fun addSong(song: Song){
-        song.id = db.push().key
-        db.child(song.id!!).setValue(song).addOnCompleteListener {
+    fun addSong(song: Song, eventID: String){
+        var ref = db.child(eventID)
+        song.id = ref.push().key
+        ref.child(song.id!!).setValue(song).addOnCompleteListener {
             if (it.isSuccessful) {
                 _result.value = null
             } else {

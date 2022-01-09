@@ -1,23 +1,18 @@
 package com.example.smartplaylist.ui
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
-import com.example.smartplaylist.R
 import com.example.smartplaylist.databinding.FragmentHomeCalendarBinding
-import com.example.smartplaylist.data.Event
 import java.text.SimpleDateFormat
 import java.util.*
 
 class HomeCalendar : Fragment() {
-
+    private var datekey: String = ""
 
     lateinit var binding: FragmentHomeCalendarBinding
 
@@ -52,6 +47,7 @@ class HomeCalendar : Fragment() {
         binding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
 
             var dateID = "$dayOfMonth-$month-$year"
+            datekey = dateID
             adapter.clearEvents()
             viewModel.getRealTimeUpdate(dateID)
         }
@@ -59,13 +55,20 @@ class HomeCalendar : Fragment() {
 
         binding.button.setOnClickListener {
 
-            AddEventFragment().show(childFragmentManager, "")
+            AddEventFragment(datekey).show(childFragmentManager, "")
         }
 
         binding.recyclerView.adapter = adapter
-        val sdf = SimpleDateFormat("d-M-yyyy")
-        val currentDate = sdf.format(Date())
-        Log.d("date", currentDate)
+        val sdf = SimpleDateFormat("dd-MM-yyyy")
+        var currentDate = sdf.format(Date())
+
+        var date : Int = currentDate.substring(0,2).toInt()
+        var month : Int = currentDate.substring(3,5).toInt()
+        var year : Int = currentDate.substring(6).toInt()
+        month-=1
+
+        currentDate = "$date-$month-$year"
+        datekey = currentDate
         viewModel.getRealTimeUpdate(currentDate)
 
         viewModel.event.observe(viewLifecycleOwner, {

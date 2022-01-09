@@ -10,4 +10,8 @@
     <string name="error">%1$s</string>
     <string name="Display">ArtistName</string>
     <string name="eventcreated">Event created successfully</string>
+    <string name="DisplaySname">Song Name</string>
+    <string name="DisplayAname">Artist Name</string>
+    <string name="DisplayVCount">View Count</string>
+    <string name="DisplayLCount">Likes Count</string>
 </resources>

@@ -10,9 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.smartplaylist.R
 import com.example.smartplaylist.data.Event
 import com.example.smartplaylist.databinding.FragmentAddEventBinding
-import com.example.smartplaylist.databinding.FragmentHomeCalendarBinding
 
-class AddEventFragment : DialogFragment() {
+class AddEventFragment constructor(private var date: String) : DialogFragment() {
 
     lateinit var binding: FragmentAddEventBinding
     lateinit var viewModel: EventlistViewModel
@@ -60,7 +59,7 @@ class AddEventFragment : DialogFragment() {
             val event = Event()
             event.eventName  = name
             event.eventDescription = desc
-            viewModel.addEvent(event)
+            viewModel.addEvent(event, date)
         }
     }
 }
