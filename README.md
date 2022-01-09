@@ -1,5 +1,7 @@
 # SmartPlaylist
 
+By: Hardik Khandelwal, Sriram Munagala, Chaitanya Manas Cheedella and Agastya Thoppur
+
 ## Problem Statement
 
 It has always been incredibly difficult to mutually agree on a playlist at group events or dance parties where everyone’s taste of music 
