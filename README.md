@@ -40,5 +40,6 @@ Once the basic functionality is fully tested, we plan to use this app for conduc
 * We will also add a feature of merging playlists of different groups for the same event, making the sorting algorithm smarter to choose equally between songs of different regions and groups participating in the same event.
 * Exporting the playlist to any music player application and controlling the player from within our application.
 
+Sample Working Video: https://drive.google.com/drive/folders/1nW0zdOGh88Zzuy5jke7u1f_E19O2Tb6l?usp=sharing
 
 
