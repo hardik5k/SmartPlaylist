@@ -30,7 +30,7 @@ Besides, we used Adaptors, Fragments, ContraintLayout, CardViews, Navigation and
 ## Instructions of Use
 * As the app opens, the calendar can be used to scroll to an appropriate day and add events.
 * Inside each event, the '+' button is used to add songs using their YouTube URL.
-* Each card of the event list can be right/left swiped to up/down vote a song, and tapping on the card provides useful song information.
+* Each card of the event list can be right swiped to upvote a song and left swiped to undo the upvote if you want to. Tapping on the card provides useful song information.
 
 ## Application Link & Future Scope
 
