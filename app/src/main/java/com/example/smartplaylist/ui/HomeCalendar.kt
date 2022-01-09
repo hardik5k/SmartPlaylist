@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.example.smartplaylist.R
 import com.example.smartplaylist.databinding.FragmentHomeCalendarBinding
 import com.example.smartplaylist.data.Event
@@ -27,6 +28,14 @@ class HomeCalendar : Fragment() {
 
     lateinit var binding: FragmentHomeCalendarBinding
 
+    val adapter =  EventAdapter(mutableListOf(
+        Event("1", "Event 1", "Desc 1"),
+        Event("2", "Event 2", "Desc 2"),
+        Event("3", "Event 3", "Desc 3"),
+        Event("4", "Event 4", "Desc 4"),
+        Event("5", "Event 5", "Desc 5")))
+    lateinit var viewModel: EventlistViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -43,6 +52,7 @@ class HomeCalendar : Fragment() {
 //        return inflater.inflate(R.layout.fragment_home_calendar, container, false)
 
         binding = FragmentHomeCalendarBinding.inflate(layoutInflater)
+        viewModel = ViewModelProvider(this).get(EventlistViewModel::class.java)
         return binding.root
     }
 
@@ -58,12 +68,19 @@ class HomeCalendar : Fragment() {
             val toast = Toast.makeText(this.context, "hey $dayOfMonth/$month/$year !!", Toast.LENGTH_SHORT).show()
         }
 
-        binding.recyclerView.adapter = EventAdapter(mutableListOf(
-            Event("1", "Event 1", "Desc 1"),
-            Event("2", "Event 2", "Desc 2"),
-            Event("3", "Event 3", "Desc 3"),
-            Event("4", "Event 4", "Desc 4"),
-            Event("5", "Event 5", "Desc 5")))
+        binding.button.setOnClickListener {
+
+            // host event func
+        }
+
+        binding.recyclerView.adapter = adapter
+
+        viewModel.getRealTimeUpdate()
+
+        viewModel.event.observe(viewLifecycleOwner, {
+
+            adapter.addEvent(it)
+        })
     }
 
     companion object {

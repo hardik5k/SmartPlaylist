@@ -52,4 +52,10 @@ class EventAdapter() : RecyclerView.Adapter<EventAdapter.EventViewHolder>()  {
     }
 
     override fun getItemCount() = eventList.size
+
+
+    fun addEvent(event: Event) {
+
+        eventList.add(event)
+    }
 }
