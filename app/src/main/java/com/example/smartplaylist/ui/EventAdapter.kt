@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smartplaylist.R
 
 
-class EventAdapter(private val context: Context, private val dataset: List<Event>) : RecyclerView.Adapter<EventAdapter.EventViewHolder>()  {
+class EventAdapter : RecyclerView.Adapter<EventAdapter.EventViewHolder>()  {
+
+    var eventList = mutableListOf<Event>()
 
     class EventViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
@@ -30,7 +32,7 @@ class EventAdapter(private val context: Context, private val dataset: List<Event
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
 
-        val item = dataset[position]
+        val item = eventList[position]
 
         holder.id = item.eventID
         holder.title.text = item.eventName
@@ -40,9 +42,9 @@ class EventAdapter(private val context: Context, private val dataset: List<Event
 
             // change fragment
             
-            
+
         }
     }
 
-    override fun getItemCount() = dataset.size
+    override fun getItemCount() = eventList.size
 }

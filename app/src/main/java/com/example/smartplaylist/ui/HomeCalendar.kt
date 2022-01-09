@@ -44,6 +44,12 @@ class HomeCalendar : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.recyclerView.adapter = EventAdapter()
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
